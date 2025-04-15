@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_gallery/detail_screen.dart';
 import 'package:my_gallery/gallery_data.dart';
 
 class ImagePage extends StatelessWidget {
@@ -23,31 +24,26 @@ class ImagePage extends StatelessWidget {
       myWidgets.add(
         GestureDetector(
           onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  content: Column(
-                    children: [
-                      Expanded(child: Image.asset(galleryItem.imagePath)),
-                      Text(galleryItem.imageTitle),
-                      Text(galleryItem.imageDate),
-                      Text(galleryItem.imageDescription),
-                    ],
-                  ),
-                );
-              },
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DetailScreen(
+                  galleryItem: galleryItem,
+                ),
+              ),
             );
           },
           child: Card(
             child: Column(
               children: [
                 Expanded(
-                  child: Image.asset(
-                    galleryItem.imagePath,
-                    width: 150,
-                    height: 150,
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: galleryItem.imagePath,
+                    child: Image.asset(
+                      galleryItem.imagePath,
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Text(galleryItem.imageTitle),
